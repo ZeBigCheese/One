@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
 
-    <el-form class="login-form">
+    <el-form class="login-form" :rules="loginRules"  :model="loginForm">
 
       <!-- title -->
       <div class="title-container">
@@ -9,17 +9,17 @@
       </div>
 
       <!-- 用户名 -->
-      <el-form-item>
+      <el-form-item prop="username">
         <i class="el-icon-user-solid"></i>
-        <el-input placeholder="username" type="text">
+        <el-input v-model="loginForm.username" placeholder="username" type="text">
         </el-input>
       </el-form-item>
 
       <!-- 密码 -->
-       <el-form-item>
-        <i class="el-icon-user-solid"></i>
-        <el-input placeholder="password" type="password"></el-input>
-        <i class="el-icon-user-solid showPwd"></i>
+       <el-form-item prop="password">
+        <i class="el-icon-lock"></i>
+        <el-input v-model="loginForm.password" placeholder="password" type="password"></el-input>
+        <i class="el-icon-view showPwd"></i>
       </el-form-item>
 
       <!-- 登录 -->
@@ -32,9 +32,39 @@
   </div>
 </template>
 
+
+
 <script>
-export default {};
+export default {
+  data() {
+     var validatePassword = (rule, value, callback) => {
+        if(value.length<6){
+          callback(new Error('密码不能小于6位'));
+        }else{
+          callback()
+        }
+      }
+    return {
+      // 自定义密码效验
+      loginForm:{
+        username:"super-admin",
+        password:"123456",
+      },
+      loginRules: {
+          username: [
+            { required: true, message: '用户名为必填项', trigger: 'blur' },
+          ],
+          password: [
+           { validator: validatePassword, trigger: 'blur' }
+          ],
+        }
+    }
+  },
+};
 </script>
+
+
+
 
 <style scoped lang="scss">
 $bg: #2d3a4b;
@@ -91,12 +121,18 @@ $cursor: #fff;
   }
   .showPwd{
     position: absolute;
-    right: 10px;
-    top: 7px;
+    right: 13px;
+    top: 15px;
     font-size: 16px;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+  }
+  .el-icon-user-solid{
+    padding-left: 10px;
+  }
+  .el-icon-lock{
+    padding-left: 10px;
   }
 }
 </style>
