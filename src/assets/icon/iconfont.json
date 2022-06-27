@@ -1,0 +1,16 @@
+{
+  "id": "3485780",
+  "name": "icon",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "729026",
+      "name": "闭眼 ",
+      "font_class": "biyan",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    }
+  ]
+}

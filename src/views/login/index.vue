@@ -11,15 +11,20 @@
       <!-- 用户名 -->
       <el-form-item prop="username">
         <i class="el-icon-user-solid"></i>
-        <el-input v-model="loginForm.username" placeholder="username" type="text">
+        <el-input v-model.trim="loginForm.username" placeholder="username" type="text">
         </el-input>
       </el-form-item>
 
       <!-- 密码 -->
        <el-form-item prop="password">
         <i class="el-icon-lock"></i>
-        <el-input v-model="loginForm.password" placeholder="password" type="password"></el-input>
-        <i class="el-icon-view showPwd"></i>
+        <el-input 
+        v-model.trim="loginForm.password" 
+        placeholder="password" 
+        :type="passwordType">
+        </el-input>
+        <i v-if="this.passwordType=='password'" class="el-icon-view showPwd" @click="onChangePwdType"></i>
+        <span v-else class="iconfont icon-biyan showPwd" @click="onChangePwdType"></span>
       </el-form-item>
 
       <!-- 登录 -->
@@ -35,7 +40,9 @@
 
 
 <script>
+import App from '@/App.vue';
 export default {
+  components: { App },
   data() {
      var validatePassword = (rule, value, callback) => {
         if(value.length<6){
@@ -57,7 +64,14 @@ export default {
           password: [
            { validator: validatePassword, trigger: 'blur' }
           ],
-        }
+        },
+        // 定义password
+        passwordType:'password'
+    }
+  },
+  methods: {
+    onChangePwdType(){
+      this.passwordType=this.passwordType=='password'?'text':'password'
     }
   },
 };
