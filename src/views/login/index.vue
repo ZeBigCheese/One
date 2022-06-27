@@ -29,7 +29,7 @@
 
       <!-- 登录 -->
       <el-form-item>
-        <el-button type="primary" style="width:100%">登录</el-button>
+        <el-button type="primary" style="width:100%" @click="handleLogin">登录</el-button>
       </el-form-item>
 
     </el-form>
@@ -41,16 +41,11 @@
 
 <script>
 import App from '@/App.vue';
+import {validatePassword} from "./rule"
+
 export default {
   components: { App },
   data() {
-     var validatePassword = (rule, value, callback) => {
-        if(value.length<6){
-          callback(new Error('密码不能小于6位'));
-        }else{
-          callback()
-        }
-      }
     return {
       // 自定义密码效验
       loginForm:{
@@ -70,8 +65,12 @@ export default {
     }
   },
   methods: {
+    // 点击睁眼闭眼
     onChangePwdType(){
       this.passwordType=this.passwordType=='password'?'text':'password'
+    },
+    handleLogin(){
+      this.$store.dispatch('login',this.loginForm)
     }
   },
 };

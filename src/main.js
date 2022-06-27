@@ -13,6 +13,8 @@ Vue.use(ElementUI);
 import "./style/index.scss"
 // 引入icon图标
 import "./assets/icon/iconfont.css"
+// 引入axios
+import "./utils/request"
 
 Vue.config.productionTip = false;
 
@@ -21,3 +23,5 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount("#app");
+
+
