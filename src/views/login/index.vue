@@ -69,8 +69,9 @@ export default {
     onChangePwdType(){
       this.passwordType=this.passwordType=='password'?'text':'password'
     },
-    handleLogin(){
-      this.$store.dispatch('login',this.loginForm)
+    async handleLogin(){
+      await this.$store.dispatch('user/login',this.loginForm)
+      this.$router.push('/')
     }
   },
 };

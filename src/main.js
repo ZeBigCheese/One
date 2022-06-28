@@ -15,6 +15,8 @@ import "./style/index.scss"
 import "./assets/icon/iconfont.css"
 // 引入axios
 import "./utils/request"
+// 引入路由守卫
+import "./permission"
 
 Vue.config.productionTip = false;
 

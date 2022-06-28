@@ -1,6 +1,7 @@
 import axios from "axios";
 import md5 from "md5"
 import { Loading } from "element-ui";
+import { Message } from 'element-ui';
 
 console.log(process.env.VUE_APP_BASE_API)
 // 创建axios实例
@@ -22,14 +23,31 @@ service.interceptors.request.use(function (config) {
   return Promise.reject(error);
 });
 
+
+
 // 添加响应拦截器
 service.interceptors.response.use(function (response) {
   // 对响应数据做点什么
+  console.log('响应拦截器',response.data)
+  // 解构出success  message data code
+  let {success,message,data,code}=response.data
+  if(success){
+    Message.success(message)
+    return data
+  }else{
+    Message.error(message)
+    return Promise.reject(new Error (message))
+  }
+
   return response;
 }, function (error) {
   // 对响应错误做点什么
+  Message.error(error.message)
   return Promise.reject(error);
 });
+
+
+
 
 // 获取icode、
 function getTestICode() {
